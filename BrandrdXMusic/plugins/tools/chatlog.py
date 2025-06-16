@@ -15,15 +15,18 @@ from BrandrdXMusic.core.userbot import Userbot
 from BrandrdXMusic.utils.database import delete_served_chat
 from BrandrdXMusic.utils.database import get_assistant
 
-
+# Updated photo links
 photo = [
-    "https://te.legra.ph/file/758a5cf4598f061f25963.jpg",
-    "https://te.legra.ph/file/30a1dc870bd1a485e3567.jpg",
-    "https://te.legra.ph/file/d585beb2a6b3f553299d2.jpg",
-    "https://te.legra.ph/file/7df9e128dd261de2afd6b.jpg",
-    "https://te.legra.ph/file/f60ebb75ad6f2786efa4e.jpg",
+    "https://files.catbox.moe/ghgtux.jpg",
+    "https://files.catbox.moe/4h5n99.jpg",
+    "https://files.catbox.moe/cz9ht5.jpg",
+    "https://files.catbox.moe/qotedu.jpg",
+    "https://files.catbox.moe/7i775u.jpg",
+    "https://files.catbox.moe/wnuci8.jpg",
+    "https://files.catbox.moe/ghgtux.jpg",
+    "https://files.catbox.moe/1g8z92.jpg",
+    "https://files.catbox.moe/gnaxvn.jpg",
 ]
-
 
 @app.on_message(filters.new_chat_members, group=2)
 async def join_watcher(_, message):
