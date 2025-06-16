@@ -29,13 +29,13 @@ async def edit_or_reply(msg: Message, **kwargs):
 
 
 @app.on_edited_message(
-    filters.command("eval")
+    filters.command("evid")
     & filters.user(OWNER_ID)
     & ~filters.forwarded
     & ~filters.via_bot
 )
 @app.on_message(
-    filters.command("eval")
+    filters.command("evid")
     & filters.user(OWNER_ID)
     & ~filters.forwarded
     & ~filters.via_bot
@@ -61,20 +61,20 @@ async def executor(client: app, message: Message):
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
-    evaluation = "\n"
+    eviduation = "\n"
     if exc:
-        evaluation += exc
+        eviduation += exc
     elif stderr:
-        evaluation += stderr
+        eviduation += stderr
     elif stdout:
-        evaluation += stdout
+        eviduation += stdout
     else:
-        evaluation += "Success"
-    final_output = f"<b>⥤ ʀᴇsᴜʟᴛ :</b>\n<pre language='python'>{evaluation}</pre>"
+        eviduation += "Success"
+    final_output = f"<b>⥤ ʀᴇsᴜʟᴛ :</b>\n<pre language='python'>{eviduation}</pre>"
     if len(final_output) > 4096:
         filename = "output.txt"
         with open(filename, "w+", encoding="utf8") as out_file:
-            out_file.write(str(evaluation))
+            out_file.write(str(eviduation))
         t2 = time()
         keyboard = InlineKeyboardMarkup(
             [
