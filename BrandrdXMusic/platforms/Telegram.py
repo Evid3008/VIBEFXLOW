@@ -4,7 +4,6 @@ import time
 from typing import Union
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Voice
-from pyrogram.errors.exceptions.bad_request_400 import MessageIdInvalid
 
 import config
 from BrandrdXMusic import app
@@ -14,6 +13,7 @@ from BrandrdXMusic.utils.formatters import (
     get_readable_time,
     seconds_to_min,
 )
+
 
 class TeleAPI:
     def __init__(self):
@@ -37,9 +37,9 @@ class TeleAPI:
         try:
             file_name = file.file_name
             if file_name is None:
-                file_name = "telegram_audio" if audio else "telegram_video"
+                file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ"
         except:
-            file_name = "telegram_audio" if audio else "telegram_video"
+            file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ"
         return file_name
 
     async def get_duration(self, file):
@@ -91,17 +91,6 @@ class TeleAPI:
             file_name = os.path.join(os.path.realpath("downloads"), file_name)
         return file_name
 
-    async def is_hevc(self, file_path):
-        import subprocess
-        result = subprocess.run(
-            ["ffprobe", "-v", "error", "-select_streams", "v:0",
-             "-show_entries", "stream=codec_name", "-of", "default=noprint_wrappers=1:nokey=1", file_path],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
-        return result.stdout.strip() == "hevc"
-
     async def download(self, _, message, mystic, fname):
         lower = [0, 8, 17, 38, 64, 77, 96]
         higher = [5, 10, 20, 40, 66, 80, 99]
@@ -121,7 +110,7 @@ class TeleAPI:
                     [
                         [
                             InlineKeyboardButton(
-                                text="cancel",
+                                text="ᴄᴀɴᴄᴇʟ",
                                 callback_data="stop_downloading",
                             ),
                         ]
@@ -133,7 +122,7 @@ class TeleAPI:
                 eta = int((total - current) / speed)
                 eta = get_readable_time(eta)
                 if not eta:
-                    eta = "0 seconds"
+                    eta = "0 sᴇᴄᴏɴᴅs"
                 total_size = convert_bytes(total)
                 completed_size = convert_bytes(current)
                 speed = convert_bytes(speed)
@@ -157,11 +146,8 @@ class TeleAPI:
                                     reply_markup=upl,
                                 )
                                 checker[counter] = 100
-                            except MessageIdInvalid:
-                                print("Message ID is invalid, skipping edit_text.")
+                            except:
                                 pass
-                # Add a small delay to reduce download speed
-                await asyncio.sleep(0.1)  # Adjust the sleep time as needed
 
             speed_counter[message.id] = time.time()
             try:
@@ -175,32 +161,10 @@ class TeleAPI:
                         int(int(time.time()) - int(speed_counter[message.id]))
                     )
                 except:
-                    elapsed = "0 seconds"
-                try:
-                    await mystic.edit_text(_["tg_2"].format(elapsed))
-                except MessageIdInvalid:
-                    print("Message ID is invalid, skipping edit_text.")
-
-                # Check if the file is HEVC and handle accordingly
-                if await self.is_hevc(fname):
-                    # If the server can handle HEVC, send it directly
-                    await app.send_video(
-                        chat_id=message.chat.id,
-                        video=fname,
-                        duration=int((await self.get_duration(message.reply_to_message.video, fname)).split(':')[0]) * 60 +
-                              int((await self.get_duration(message.reply_to_message.video, fname)).split(':')[1]),
-                        supports_streaming=True
-                    )
-                else:
-                    # Handle non-HEVC files as before
-                    pass
-
-            except Exception as e:
-                try:
-                    await mystic.edit_text(_["tg_3"])
-                except MessageIdInvalid:
-                    print("Message ID is invalid, skipping edit_text.")
-                print(f"Error: {e}")
+                    elapsed = "0 sᴇᴄᴏɴᴅs"
+                await mystic.edit_text(_["tg_2"].format(elapsed))
+            except:
+                await mystic.edit_text(_["tg_3"])
 
         task = asyncio.create_task(down_load())
         config.lyrical[mystic.id] = task
