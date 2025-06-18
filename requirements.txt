@@ -8,6 +8,7 @@ dnspython==2.3.0
 hachoir
 heroku3
 motor
+pyrogram==2.0.106
 pillow==9.5.0
 psutil
 numpy
