@@ -9,7 +9,6 @@ hachoir
 heroku3
 motor
 pillow==9.5.0
-ffmpeg-python==0.2.0
 psutil
 numpy
 wget
