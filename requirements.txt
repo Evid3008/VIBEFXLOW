@@ -8,7 +8,6 @@ dnspython==2.3.0
 hachoir
 heroku3
 motor
-pyrogram==2.0.106
 pillow==9.5.0
 psutil
 numpy
@@ -38,8 +37,6 @@ youtube-search-python
 googlesearch-python
 unidecode
 TheApix
-#git+https://github.com/joetats/youtube_search@master
-#git+https://github.com/alexmercerind/youtube-search-python@main
 https://github.com/KurimuzonAkuma/pyrogram/archive/v2.1.23.zip
 git+https://github.com/AsmSafone/SafoneAPI
 bing_image_downloader
