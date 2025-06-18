@@ -27,7 +27,6 @@ tgcrypto
 telegraph==2.2.0
 yt-dlp
 lexica-api==1.4.7
-ffmpeg-python==0.2.0
 httpx==0.25.2
 lyricsgenius
 spotipy
@@ -37,6 +36,8 @@ youtube-search-python
 googlesearch-python
 unidecode
 TheApix
+#git+https://github.com/joetats/youtube_search@master
+#git+https://github.com/alexmercerind/youtube-search-python@main
 https://github.com/KurimuzonAkuma/pyrogram/archive/v2.1.23.zip
 git+https://github.com/AsmSafone/SafoneAPI
 bing_image_downloader
