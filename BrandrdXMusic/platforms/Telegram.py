@@ -160,6 +160,8 @@ class TeleAPI:
                             except MessageIdInvalid:
                                 print("Message ID is invalid, skipping edit_text.")
                                 pass
+                # Add a small delay to reduce download speed
+                await asyncio.sleep(0.1)  # Adjust the sleep time as needed
 
             speed_counter[message.id] = time.time()
             try:
