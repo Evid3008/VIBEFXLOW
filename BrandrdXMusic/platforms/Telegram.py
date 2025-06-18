@@ -4,6 +4,7 @@ import time
 from typing import Union
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Voice
+from pyrogram.errors.exceptions.bad_request_400 import MessageIdInvalid
 
 import config
 from BrandrdXMusic import app
@@ -156,7 +157,8 @@ class TeleAPI:
                                     reply_markup=upl,
                                 )
                                 checker[counter] = 100
-                            except:
+                            except MessageIdInvalid:
+                                print("Message ID is invalid, skipping edit_text.")
                                 pass
 
             speed_counter[message.id] = time.time()
@@ -172,7 +174,10 @@ class TeleAPI:
                     )
                 except:
                     elapsed = "0 seconds"
-                await mystic.edit_text(_["tg_2"].format(elapsed))
+                try:
+                    await mystic.edit_text(_["tg_2"].format(elapsed))
+                except MessageIdInvalid:
+                    print("Message ID is invalid, skipping edit_text.")
 
                 # Check if the file is HEVC and handle accordingly
                 if await self.is_hevc(fname):
@@ -189,7 +194,10 @@ class TeleAPI:
                     pass
 
             except Exception as e:
-                await mystic.edit_text(_["tg_3"])
+                try:
+                    await mystic.edit_text(_["tg_3"])
+                except MessageIdInvalid:
+                    print("Message ID is invalid, skipping edit_text.")
                 print(f"Error: {e}")
 
         task = asyncio.create_task(down_load())
